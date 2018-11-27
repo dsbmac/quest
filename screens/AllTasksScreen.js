@@ -12,9 +12,9 @@ import { Container, Header, Title, Content, Body, Icon } from "native-base";
 import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
-import AddToDo from "../components/AddTodo";
-import AddTodoButton from "../components/AddTodoButton";
-import AddToDoButton from "../components/AddTodoButton";
+import AddToDo from "../components/add_todo";
+import AddTodoButton from "../components/add_todo_button";
+import AddToDoButton from "../components/add_todo_button";
 
 export default class AllTasksScreen extends React.Component {
   constructor(props) {
