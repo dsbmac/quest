@@ -48,9 +48,11 @@ export default class AllTasksScreen extends React.Component {
     return (
       <Container>
         <Content>
-          <AddToDo />
+          {new_todo && (
+            <AddToDo onPress={this.saveToDoData} onCancel={this.addNewToDo} />
+          )}
         </Content>
-        <AddToDoButton />
+        <AddToDoButton onAddNewToDo={this.addNewToDo} />
       </Container>
     );
   }
