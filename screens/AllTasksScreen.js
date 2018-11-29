@@ -46,23 +46,8 @@ export default class AllTasksScreen extends React.Component {
 
   render() {
     const { new_todo } = this.state;
-    return (
-      <Container>
-        <Content>
-          {new_todo && (
-            <AddToDo onPress={this.saveToDoData} onCancel={this.addNewToDo} />
-          )}
-        </Content>
-        <AddToDoButton onAddNewToDo={this.addNewToDo} />
-      </Container>
-    );
+    return <ToDoAll show_new_todo={true} screen="All" />;
   }
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    );
-  };
 }
 
 const styles = StyleSheet.create({
