@@ -13,8 +13,8 @@ import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
 import AddToDo from "../components/add_todo";
-import AddTodoButton from "../components/add_todo_button";
 import AddToDoButton from "../components/add_todo_button";
+import ToDoAll from "../containers/todo_all";
 
 export default class AllTasksScreen extends React.Component {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class AllTasksScreen extends React.Component {
     this.addNewToDo((show = false));
     console.log(
       "Todo is: " +
+        show +
         todo.title +
         " " +
         (todo.completed ? "completed!" : "not completed!")
@@ -56,35 +57,6 @@ export default class AllTasksScreen extends React.Component {
       </Container>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    );
-  };
 
   _handleHelpPress = () => {
     WebBrowser.openBrowserAsync(

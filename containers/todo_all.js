@@ -6,9 +6,7 @@ import {
   Content,
   Body,
   Text,
-  Icon,
-  CheckBox,
-  ListItem
+  Icon
 } from "native-base";
 import { TabNavigator, TabBarBottom } from "react-navigation";
 
@@ -21,6 +19,8 @@ import {
   deleteTodo,
   updateTodo
 } from "../store/reducers/todo_reducer";
+
+import { CheckBox, ListItem } from "native-base";
 
 class ToDoAll extends React.Component {
   constructor(props) {
@@ -41,13 +41,29 @@ class ToDoAll extends React.Component {
     });
   };
 
+  screenFilterTodos = () => {
+    const { screen, todos } = this.props;
+    if (screen == "Active") {
+      return todos.filter(function(todo) {
+        return !todo.completed;
+      });
+    } else if (screen == "Completed") {
+      return todos.filter(function(todo) {
+        return todo.completed;
+      });
+    } else {
+      return todos;
+    }
+  };
+
   render() {
     const { new_todo } = this.state;
     const { todos, show_new_todo, screen, deleteTodo, updateTodo } = this.props;
 
     let listItm = [];
     if (todos.length > 0) {
-      listItm = todos.map((todo, index) => (
+      let scrTodos = this.screenFilterTodos();
+      listItm = scrTodos.map((todo, index) => (
         <ToDoItem
           key={index}
           todo={todo}
@@ -61,7 +77,7 @@ class ToDoAll extends React.Component {
       <Container>
         <Header>
           <Body>
-            <Title> "All Todo" </Title>
+            <Title>{screen}</Title>
           </Body>
         </Header>
         <Content>
@@ -70,7 +86,7 @@ class ToDoAll extends React.Component {
             <NewToDo onPress={this.saveToDoData} onCancel={this.addNewToDo} />
           )}
         </Content>
-        <AddToDoButton onAddNewToDo={this.addNewToDo} />
+        {show_new_todo && <AddToDoButton onAddNewToDo={this.addNewToDo} />}
       </Container>
     );
   }
