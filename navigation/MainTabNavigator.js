@@ -8,7 +8,9 @@ import {
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import AllTasksScreen from "../screens/AllTasksScreen";
+import ManagerScreen from "../screens/ManagerScreen";
 import LinksScreen from "../screens/LinksScreen";
+import CreatorScreen from "../screens/CreatorScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 const HomeStack = createStackNavigator({
@@ -17,6 +19,20 @@ const HomeStack = createStackNavigator({
 
 HomeStack.navigationOptions = {
   tabBarLabel: "All",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-list" : "md-list"}
+    />
+  )
+};
+
+const ManagerStack = createStackNavigator({
+  Home: ManagerScreen
+});
+
+ManagerStack.navigationOptions = {
+  tabBarLabel: "Programs",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -53,6 +69,24 @@ LinksStack.navigationOptions = {
   )
 };
 
+const CreatorStack = createStackNavigator({
+  Settings: CreatorScreen
+});
+
+CreatorStack.navigationOptions = {
+  tabBarLabel: "Creator",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === "ios"
+          ? "ios-checkmark-circle-outline"
+          : "md-checkmark-circle-outline"
+      }
+    />
+  )
+};
+
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen
 });
@@ -72,7 +106,10 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  CreatorStack,
   AllTasksStack,
+  ManagerStack,
   LinksStack,
+
   SettingsStack
 });
