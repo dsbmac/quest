@@ -1,7 +1,6 @@
 const ADD_TODO = "TODO/TODO/ADD_TODO";
 const UPDATE_TODO = "TODO/TODO/UPDATE_TODO";
 const DELETE_TODO = "TODO/TODO/DELETE_TODO";
-const ADD_PROGRAM = "PROGRAM/PROGRAM/ADD_PROGRAM";
 
 const initialState = {
   todos: [],
@@ -30,10 +29,6 @@ export default function todo_reducer(state = initialState, action) {
           return todo.title != action.todo.title;
         })
       };
-    case ADD_PROGRAM:
-      return {
-        programs: [...state.programs, action.program]
-      };
     default:
       return state;
   }
@@ -57,12 +52,5 @@ export function deleteTodo(todo) {
   return {
     type: DELETE_TODO,
     todo
-  };
-}
-
-export function addProgram(program) {
-  return {
-    type: ADD_PROGRAM,
-    program
   };
 }
