@@ -5,6 +5,10 @@ import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
 import SaveProgramButton from "../components/save_program_button";
+import CreatorAddToDoButton from "../components/creator_add_todo_button";
+import TodoItem from "../components/program/todo_item";
+import NewProgram from "../components/new_program";
+// import NewProgramTcomb from "../components/new_program_t";
 
 export default class ListDividerExample extends Component {
   constructor(props) {
@@ -14,6 +18,16 @@ export default class ListDividerExample extends Component {
     };
   }
   saveToDoData = todo => {
+    this.addNewToDo((show = false));
+    console.log(
+      "Todo is: " +
+        show +
+        todo.title +
+        " " +
+        (todo.completed ? "completed!" : "not completed!")
+    );
+  };
+  saveProgramData = todo => {
     this.addNewToDo((show = false));
     console.log(
       "Todo is: " +
@@ -35,32 +49,36 @@ export default class ListDividerExample extends Component {
   };
 
   render() {
-    return (
-      <Container>
-        <Header />
-        <Content>
-          <List>
-            <ListItem itemDivider>
-              <Text>Week 1</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Aaron Bennet</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Ali Connors</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text>B</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Bradley Horowitz</Text>
-            </ListItem>
-          </List>
-        </Content>
-        <SaveProgramButton />
-      </Container>
-    );
+    return <NewProgram />;
   }
+  // render() {
+  //   return (
+  //     <Container>
+  //       <Header />
+  //       <Content>
+  //         <List>
+  //           <ListItem itemDivider>
+  //             <Text>Week 1</Text>
+  //           </ListItem>
+  //           <ListItem>
+  //             <Text>Aaron Bennet</Text>
+  //           </ListItem>
+  //           <ListItem>
+  //             <Text>Ali Connors</Text>
+  //           </ListItem>
+  //           <ListItem itemDivider>
+  //             <Text>B</Text>
+  //           </ListItem>
+  //           <ListItem>
+  //             <Text>Bradley Horowitz</Text>
+  //           </ListItem>
+  //         </List>
+  //       </Content>
+  //       <CreatorAddToDoButton />
+  //       <SaveProgramButton />
+  //     </Container>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({
