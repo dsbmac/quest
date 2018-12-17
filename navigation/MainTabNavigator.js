@@ -10,7 +10,7 @@ import HomeScreen from "../screens/HomeScreen";
 import AllTasksScreen from "../screens/AllTasksScreen";
 import ManagerScreen from "../screens/ManagerScreen";
 import LinksScreen from "../screens/LinksScreen";
-import CreatorScreen from "../screens/CreatorScreen";
+import ProgramEditorScreen from "../screens/ProgramEditorScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 const HomeStack = createStackNavigator({
@@ -69,12 +69,12 @@ LinksStack.navigationOptions = {
   )
 };
 
-const CreatorStack = createStackNavigator({
-  Settings: CreatorScreen
+const ProgramEditorStack = createStackNavigator({
+  Settings: ProgramEditorScreen
 });
 
-CreatorStack.navigationOptions = {
-  tabBarLabel: "Creator",
+ProgramEditorStack.navigationOptions = {
+  tabBarLabel: "Editor",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -106,7 +106,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  CreatorStack,
+  ProgramEditorStack,
   AllTasksStack,
   ManagerStack,
   LinksStack,

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Separator,
   Button,
@@ -16,28 +16,30 @@ import {
   Form,
   Textarea,
   Text,
-  Label
-} from "native-base";
+  Label,
+} from 'native-base';
+import SaveProgramButton from '../components/save_program_button';
+import AddToDoButton from './add_todo_button';
 
 export default class NewProgram extends React.Component {
   constructor(props) {
     super(props);
-    const title = "";
-    const description = "";
+    const title = '';
+    const description = '';
     const tasks = [];
-    const createdAt = "";
+    const createdAt = '';
 
     this.state = {
       title,
       description,
       createdAt,
-      tasks
+      tasks,
     };
   }
 
   setStateUtil = (property, value) => {
     this.setState({
-      [property]: value
+      [property]: value,
     });
   };
 
@@ -56,7 +58,10 @@ export default class NewProgram extends React.Component {
           <Form>
             <Item floatingLabel>
               <Label>Title</Label>
-              <Input />
+              <Input
+                onChangeText={(txt) => this.setStateUtil('title', txt)}
+                onSubmitEditing={() => onPress(this.state)}
+              />
             </Item>
             <Item>
               <Label>Description</Label>
@@ -64,7 +69,7 @@ export default class NewProgram extends React.Component {
             </Item>
             <Item>
               <Label>Tasks</Label>
-              <Button iconRight>
+              <Button iconRight rounded>
                 <Text>Edit</Text>
                 <Icon name="md-create" />
               </Button>
@@ -82,6 +87,7 @@ export default class NewProgram extends React.Component {
             </List>
           </Form>
         </Content>
+        <AddToDoButton />
       </Container>
     );
   }

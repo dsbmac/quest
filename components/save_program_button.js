@@ -17,9 +17,11 @@ export default class SaveProgramButton extends React.Component {
     return (
       <Container>
         <Fab
-          style={{ backgroundColor: "#5067FF" }}
+          warning
           position="bottomRight"
-          onPress={() => console.log("Save program button clicked")}
+          onPress={() => {
+            console.log("Save program button clicked");
+          }}
           // onPress={() => onAddNewToDo((show = true))}
         >
           <Icon name="add" />

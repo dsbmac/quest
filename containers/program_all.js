@@ -10,15 +10,13 @@ import {
 } from "native-base";
 import { TabNavigator, TabBarBottom } from "react-navigation";
 
-import NewToDo from "../components/new_todo";
-import AddToDoButton from "../components/add_todo_button";
-import ToDoItem from "../components/todo/todo_item/todo_item";
+import NewProgram from "../components/new_program";
 import { connect } from "react-redux";
 import {
-  addTodo,
-  deleteTodo,
-  updateTodo
-} from "../store/reducers/todo_reducer";
+  addProgram,
+  deleteProgram,
+  updateProgram
+} from "../store/reducers/program_reducer";
 
 import { CheckBox, ListItem } from "native-base";
 
@@ -26,49 +24,55 @@ class ProgramAll extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      new_todo: false
+      new_program: false
     };
   }
 
-  saveToDoData = todo => {
-    this.addNewToDo((show = false));
-    this.props.addTodo(todo);
+  saveProgramData = program => {
+    this.addNewProgram((show = false));
+    this.props.addProgram(program);
   };
 
-  addNewToDo = show => {
+  addNewProgram = show => {
     this.setState({
-      new_todo: show
+      new_program: show
     });
   };
 
-  screenFilterTodos = () => {
-    const { screen, todos } = this.props;
+  screenFilterPrograms = () => {
+    const { screen, programs } = this.props;
     if (screen == "Active") {
-      return todos.filter(function(todo) {
-        return !todo.completed;
+      return programs.filter(function(program) {
+        return !program.completed;
       });
     } else if (screen == "Completed") {
-      return todos.filter(function(todo) {
-        return todo.completed;
+      return programs.filter(function(program) {
+        return program.completed;
       });
     } else {
-      return todos;
+      return programs;
     }
   };
 
   render() {
-    const { new_todo } = this.state;
-    const { todos, show_new_todo, screen, deleteTodo, updateTodo } = this.props;
+    const { new_program } = this.state;
+    const {
+      programs,
+      show_new_program,
+      screen,
+      deleteProgram,
+      updateProgram
+    } = this.props;
 
     let listItm = [];
-    if (todos.length > 0) {
-      let scrTodos = this.screenFilterTodos();
-      listItm = scrTodos.map((todo, index) => (
-        <ToDoItem
+    if (programs.length > 0) {
+      let scrPrograms = this.screenFilterPrograms();
+      listItm = scrPrograms.map((program, index) => (
+        <ProgramItem
           key={index}
-          todo={todo}
-          deleteTodo={deleteTodo}
-          updateTodo={updateTodo}
+          program={program}
+          deleteProgram={deleteProgram}
+          updateProgram={updateProgram}
         />
       ));
     }
@@ -82,11 +86,16 @@ class ProgramAll extends React.Component {
         </Header>
         <Content>
           {listItm}
-          {new_todo && (
-            <NewToDo onPress={this.saveToDoData} onCancel={this.addNewToDo} />
+          {new_program && (
+            <NewProgram
+              onPress={this.saveProgramData}
+              onCancel={this.addNewProgram}
+            />
           )}
         </Content>
-        {show_new_todo && <AddToDoButton onAddNewToDo={this.addNewToDo} />}
+        {show_new_program && (
+          <AddProgramButton onAddNewProgram={this.addNewProgram} />
+        )}
       </Container>
     );
   }
@@ -94,15 +103,15 @@ class ProgramAll extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    todos: state.todo_reducer.todos
+    programs: state.program_reducer.programs
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addTodo: todo => dispatch(addTodo(todo)),
-    deleteTodo: todo => dispatch(deleteTodo(todo)),
-    updateTodo: todo => dispatch(updateTodo(todo))
+    addProgram: program => dispatch(addProgram(program)),
+    deleteProgram: program => dispatch(deleteProgram(program)),
+    updateProgram: program => dispatch(updateProgram(program))
   };
 }
 

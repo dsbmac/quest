@@ -7,7 +7,9 @@ import store from "./store/create_store";
 
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false
+    isLoadingComplete: false,
+    isEditorMode: false,
+    isTodoEditorMode: false
   };
 
   render() {

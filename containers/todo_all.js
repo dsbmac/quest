@@ -20,8 +20,6 @@ import {
   updateTodo
 } from "../store/reducers/todo_reducer";
 
-import { CheckBox, ListItem } from "native-base";
-
 class ToDoAll extends React.Component {
   constructor(props) {
     super(props);
