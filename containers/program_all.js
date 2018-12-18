@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   Header,
@@ -6,46 +6,46 @@ import {
   Content,
   Body,
   Text,
-  Icon
-} from "native-base";
-import { TabNavigator, TabBarBottom } from "react-navigation";
+  Icon,
+} from 'native-base';
+import { TabNavigator, TabBarBottom } from 'react-navigation';
 
-import NewProgram from "../components/new_program";
-import { connect } from "react-redux";
+import NewProgram from '../components/new_program';
+import { connect } from 'react-redux';
 import {
   addProgram,
   deleteProgram,
-  updateProgram
-} from "../store/reducers/program_reducer";
+  updateProgram,
+} from '../store/reducers/program_reducer';
 
-import { CheckBox, ListItem } from "native-base";
+import { CheckBox, ListItem } from 'native-base';
 
 class ProgramAll extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      new_program: false
+      new_program: false,
     };
   }
 
-  saveProgramData = program => {
+  saveProgramData = (program) => {
     this.addNewProgram((show = false));
     this.props.addProgram(program);
   };
 
-  addNewProgram = show => {
+  addNewProgram = (show) => {
     this.setState({
-      new_program: show
+      new_program: show,
     });
   };
 
   screenFilterPrograms = () => {
     const { screen, programs } = this.props;
-    if (screen == "Active") {
+    if (screen == 'Active') {
       return programs.filter(function(program) {
         return !program.completed;
       });
-    } else if (screen == "Completed") {
+    } else if (screen == 'Completed') {
       return programs.filter(function(program) {
         return program.completed;
       });
@@ -56,13 +56,7 @@ class ProgramAll extends React.Component {
 
   render() {
     const { new_program } = this.state;
-    const {
-      programs,
-      show_new_program,
-      screen,
-      deleteProgram,
-      updateProgram
-    } = this.props;
+    const { programs, screen, deleteProgram, updateProgram } = this.props;
 
     let listItm = [];
     if (programs.length > 0) {
@@ -84,18 +78,7 @@ class ProgramAll extends React.Component {
             <Title>{screen}</Title>
           </Body>
         </Header>
-        <Content>
-          {listItm}
-          {new_program && (
-            <NewProgram
-              onPress={this.saveProgramData}
-              onCancel={this.addNewProgram}
-            />
-          )}
-        </Content>
-        {show_new_program && (
-          <AddProgramButton onAddNewProgram={this.addNewProgram} />
-        )}
+        <Content>{listItm}</Content>
       </Container>
     );
   }
@@ -103,15 +86,15 @@ class ProgramAll extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    programs: state.program_reducer.programs
+    programs: state.program_reducer.programs,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addProgram: program => dispatch(addProgram(program)),
-    deleteProgram: program => dispatch(deleteProgram(program)),
-    updateProgram: program => dispatch(updateProgram(program))
+    addProgram: (program) => dispatch(addProgram(program)),
+    deleteProgram: (program) => dispatch(deleteProgram(program)),
+    updateProgram: (program) => dispatch(updateProgram(program)),
   };
 }
 
