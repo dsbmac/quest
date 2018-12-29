@@ -3,7 +3,8 @@ import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
 import { Provider } from "react-redux";
-import store from "./store/create_store";
+// import store from "./store/create_store";
+import RootStore from "./RootStore";
 
 export default class App extends React.Component {
   state = {
@@ -23,7 +24,7 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <Provider store={store}>
+        <Provider rootStore={new RootStore()}>
           <View style={styles.container}>
             {Platform.OS === "ios" && <StatusBar barStyle="default" />}
             <AppNavigator />

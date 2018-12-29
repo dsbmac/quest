@@ -25,7 +25,7 @@ import TodoStub from "../components/todo_stub";
 import NewProgram from "../components/new_program";
 import { addProgram, deleteProgram, updateProgram } from "../store/reducers";
 
-class ProgramEditor extends React.Component {
+export default class ProgramEditor extends React.Component {
   constructor(props) {
     super(props);
     const tasks = [];
@@ -43,7 +43,14 @@ class ProgramEditor extends React.Component {
   render() {
     switch (this.props.editorPage) {
       case "NEW_PROGRAM":
-        return <NewProgram changePage={this.props.changePage} />;
+        return (
+          <NewProgram
+            addProgram={addProgram}
+            updateProgram={updateProgram}
+            deleteProgram={deleteProgram}
+            changePage={this.props.changePage}
+          />
+        );
       default:
         return <ProgramEditorHome changePage={this.props.changePage} />;
     }
@@ -63,8 +70,3 @@ function mapDispatchToProps(dispatch) {
     updateProgram: program => dispatch(updateProgram(program))
   };
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProgramEditor);

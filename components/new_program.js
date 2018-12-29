@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Separator,
   Button,
@@ -16,30 +16,33 @@ import {
   Form,
   Textarea,
   Text,
-  Label,
-} from 'native-base';
-import SaveProgramButton from '../components/save_program_button';
-import AddToDoButton from './add_todo_button';
+  Label
+} from "native-base";
+import SaveProgramButton from "../components/save_program_button";
+import AddToDoButton from "./add_todo_button";
 
 export default class NewProgram extends React.Component {
   constructor(props) {
     super(props);
-    const title = '';
-    const description = '';
+    const { changePage, addProgram, deleteProgram, updateProgram } = this.props;
+    const title = "Test";
+    const description = "";
     const tasks = [];
-    const createdAt = '';
+    const createdAt = "";
 
     this.state = {
       title,
       description,
       createdAt,
-      tasks,
+      tasks
     };
+
+    this.addProgram(this.state);
   }
 
   setStateUtil = (property, value) => {
     this.setState({
-      [property]: value,
+      [property]: value
     });
   };
 
@@ -59,7 +62,7 @@ export default class NewProgram extends React.Component {
             <Item floatingLabel>
               <Label>Title</Label>
               <Input
-                onChangeText={(txt) => this.setStateUtil('title', txt)}
+                onChangeText={txt => this.setStateUtil("title", txt)}
                 onSubmitEditing={() => onPress(this.state)}
               />
             </Item>
