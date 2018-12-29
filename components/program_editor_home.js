@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { inject } from "mobx-react";
 import {
   Separator,
   Button,
@@ -16,27 +17,34 @@ import {
   Form,
   Textarea,
   Text,
-  Label,
-} from 'native-base';
-import AddProgramButton from '../components/add_program_button';
-import NewProgram from '../components/new_program';
+  Label
+} from "native-base";
+import AddProgramButton from "../components/add_program_button";
+import NewProgram from "../components/new_program";
 
-export default class ProgramEditorHome extends React.Component {
+@inject("rootStore")
+class ProgramEditorHome extends React.Component {
   constructor(props) {
     super(props);
     const tasks = [];
     this.state = {
-      editorPage: 0,
+      editorPage: 0
     };
   }
 
   setStateUtil = (property, value) => {
     this.setState({
-      [property]: value,
+      [property]: value
     });
   };
 
   render() {
+    const agendasList = this.props.rootStore.agendaStore.agendas.map(agenda => {
+      <ListItem>
+        <Text>{agenda.title}</Text>
+      </ListItem>;
+    });
+
     return (
       <Container>
         <Header>
@@ -49,15 +57,7 @@ export default class ProgramEditorHome extends React.Component {
             <ListItem itemDivider>
               <Text>Challenges</Text>
             </ListItem>
-            <ListItem>
-              <Text>Simon Mignolet</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Nathaniel Clyne</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Dejan Lovren</Text>
-            </ListItem>
+            {agendasList}
           </List>
         </Content>
         <AddProgramButton changePage={this.props.changePage} />
@@ -65,3 +65,5 @@ export default class ProgramEditorHome extends React.Component {
     );
   }
 }
+
+export default ProgramEditorHome;

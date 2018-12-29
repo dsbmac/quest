@@ -1,4 +1,6 @@
 import React from "react";
+import { observer, inject } from "mobx-react";
+import { observable } from "mobx";
 import {
   Separator,
   Button,
@@ -21,35 +23,11 @@ import {
 import SaveProgramButton from "../components/save_program_button";
 import AddToDoButton from "./add_todo_button";
 
-export default class NewProgram extends React.Component {
-  constructor(props) {
-    super(props);
-    const { changePage, addProgram, deleteProgram, updateProgram } = this.props;
-    const title = "Test";
-    const description = "";
-    const tasks = [];
-    const createdAt = "";
-
-    this.state = {
-      title,
-      description,
-      createdAt,
-      tasks
-    };
-
-    this.addProgram(this.state);
-  }
-
-  setStateUtil = (property, value) => {
-    this.setState({
-      [property]: value
-    });
-  };
+@inject("rootStore")
+class NewProgram extends React.Component {
+  @observable agenda = this.props.rootStore.agendaStore.createAgenda();
 
   render() {
-    const { completed, title } = this.state;
-    const { onPress, onCancel } = this.props;
-
     return (
       <Container>
         <Header>
@@ -62,8 +40,8 @@ export default class NewProgram extends React.Component {
             <Item floatingLabel>
               <Label>Title</Label>
               <Input
-                onChangeText={txt => this.setStateUtil("title", txt)}
-                onSubmitEditing={() => onPress(this.state)}
+                // onChangeText={txt => this.setStateUtil("title", txt)}
+                onSubmitEditing={txt => (this.agenda.title = txt)}
               />
             </Item>
             <Item>
@@ -95,3 +73,5 @@ export default class NewProgram extends React.Component {
     );
   }
 }
+
+export default NewProgram;

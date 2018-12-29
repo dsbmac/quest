@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { inject, observer } from "mobx-react";
 import {
   Separator,
   Button,
@@ -25,13 +26,16 @@ import TodoStub from "../components/todo_stub";
 import NewProgram from "../components/new_program";
 import { addProgram, deleteProgram, updateProgram } from "../store/reducers";
 
-export default class ProgramEditor extends React.Component {
+@inject("rootStore")
+@observer
+class ProgramEditor extends React.Component {
   constructor(props) {
     super(props);
     const tasks = [];
     this.state = {
       editorPage: this.props.editorPage
     };
+    console.log(this.props.rootStore.agendaStore.agendas);
   }
 
   setStateUtil = (property, value) => {
@@ -70,3 +74,5 @@ function mapDispatchToProps(dispatch) {
     updateProgram: program => dispatch(updateProgram(program))
   };
 }
+
+export default ProgramEditor;

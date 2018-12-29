@@ -6,11 +6,6 @@ const femaleArtist = {
   gender: "female"
 };
 
-const agenda = {
-  name: "C2K",
-  todos: []
-};
-
 export default class LocalStore {
   onReceiveAgendaUpdate() {
     store.get("agendas").then(res => {
@@ -22,6 +17,11 @@ export default class LocalStore {
         return res;
       }
     });
+  }
+
+  saveAgenda(agenda) {
+    console.log("saving:" + agenda);
+    store.push("agendas", agenda);
   }
 
   fetchAgendas() {

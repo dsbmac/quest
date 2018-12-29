@@ -1,5 +1,4 @@
-import { observable, autorun, computed } from "mobx";
-// import uuid from "node-uuid";
+import { observable, autorun, computed, reaction } from "mobx";
 import LocalStore from "./LocalStore";
 
 export default class RootStore {
@@ -50,7 +49,6 @@ class AgendaStore {
    */
   loadAgendas() {
     this.isLoading = true;
-    console.log(this.transportLayer);
     this.transportLayer.fetchAgendas().then(fetchedAgendas => {
       fetchedAgendas.forEach(json => this.updateAgendaFromServer(json));
       this.isLoading = false;
@@ -81,6 +79,7 @@ class AgendaStore {
   createAgenda() {
     var agenda = new Agenda(this);
     this.agendas.push(agenda);
+    console.log("created: " + agenda.id);
     return agenda;
   }
 
@@ -121,7 +120,7 @@ class Agenda {
    */
   saveHandler = null;
 
-  constructor(store, id = uuid.v4()) {
+  constructor(store, id = uuidv4()) {
     this.store = store;
     this.id = id;
 
@@ -131,6 +130,7 @@ class Agenda {
       // if autoSave is on, send json to server
       json => {
         if (this.autoSave) {
+          console.log("saving:" + json);
           this.store.transportLayer.saveAgenda(json);
         }
       }
@@ -147,9 +147,10 @@ class Agenda {
 
   @computed get asJson() {
     return {
+      title: this.title,
       id: this.id,
       completed: this.completed,
-      task: this.task,
+      tasks: this.tasks,
       authorId: this.author ? this.author.id : null
     };
   }
@@ -170,4 +171,12 @@ class Agenda {
     // clean up the observer
     this.saveHandler();
   }
+}
+
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }

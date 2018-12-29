@@ -1,11 +1,14 @@
-import React from 'react';
-import { Container, Fab, Icon } from 'native-base';
-import { Text, View } from 'react-native';
+import React from "react";
+import { inject } from "mobx-react";
+import { Container, Fab, Icon } from "native-base";
+import { Text, View } from "react-native";
+import RootStore from "../RootStore";
 
-export default class AddProgramButton extends React.Component {
-  onAddNewProgram = (page) => {
+@inject("rootStore")
+class AddProgramButton extends React.Component {
+  onAddNewProgram = page => {
     this.setState({
-      editorPage: page,
+      editorPage: page
     });
   };
 
@@ -13,10 +16,12 @@ export default class AddProgramButton extends React.Component {
     return (
       <Container>
         <Fab
-          style={{ backgroundColor: '#5067FF' }}
+          style={{ backgroundColor: "#5067FF" }}
           position="bottomRight"
           // onPress={() => console.log("Add Program button clicked")}
-          onPress={() => this.props.changePage('NEW_PROGRAM')}
+          onPress={() => {
+            this.props.changePage("NEW_PROGRAM");
+          }}
         >
           <Icon name="add" />
         </Fab>
@@ -24,3 +29,5 @@ export default class AddProgramButton extends React.Component {
     );
   }
 }
+
+export default AddProgramButton;
